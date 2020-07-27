@@ -7,7 +7,7 @@ import {RouterModule} from '@angular/router';
 import { UserComponent } from './ components/user/user.component';
 import { CommentComponent } from './ components/comment/comment.component';
 import {PostComponent} from './ components/post/post.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,11 +20,12 @@ import {FormsModule} from '@angular/forms';
         BrowserModule,
         HttpClientModule,
         RouterModule.forRoot([
-          {path: 'users', component: UserComponent},
-          {path: 'posts', component: PostComponent},
-          {path: 'comments', component: CommentComponent}
+            {path: 'users', component: UserComponent},
+            {path: 'posts', component: PostComponent},
+            {path: 'comments', component: CommentComponent}
         ]),
-        FormsModule
+        FormsModule,
+        ReactiveFormsModule
     ],
   providers: [],
   bootstrap: [AppComponent]

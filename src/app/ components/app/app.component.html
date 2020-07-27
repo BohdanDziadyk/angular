@@ -1,45 +1,15 @@
-<form #userForm = "ngForm" (ngSubmit)="getUser()">
+<form [formGroup]="form" (ngSubmit)="login(form)">
   <div>
-    <input type="number" [(ngModel)]="user.id" #id = "ngModel" required name = "id">
+    <input type="email" placeholder="Email" [formControl]="email" >
   </div>
-  <div *ngIf="!id.valid">This field must be filled</div>
+  <div *ngIf="!form.controls.email.valid && form.controls.email.touched">This field must be filled</div>
   <div>
-    <input type="text" [(ngModel)]="user.name" #name = "ngModel" required name = "name">
+    <input  type="password" placeholder="Password" [formControl]="password">
   </div>
-  <div *ngIf="!name.valid">This field must be filled</div>
-  <button [disabled]="!id.valid || !name.valid">get user</button>
+  <div *ngIf="!form.controls.password.valid && form.controls.password.touched">This field must be filled</div>
+  <div>
+    <input  type="password"  placeholder="Confirm password" [formControl]="confirmPassword">
+  </div>
+  <div *ngIf="!form.controls.confirmPassword.valid && form.controls.confirmPassword.touched">This field must be filled</div>
+  <button (click)="passConf(form)" [disabled]="!form.valid || form.hasError('error')">Log in</button>
 </form>
-<app-user *ngFor="let user of filteredUsers" [user]="user"></app-user>
-<form #postForm = "ngForm" (ngSubmit)="getPost()">
-  <div>
-    <select type = "number" [(ngModel)]="post.userId" #userId = "ngModel" required name = "userId">
-      <option *ngFor="let user of users">{{user.id}}</option>
-    </select>
-  </div>
-  <div *ngIf="!userId.valid">This field must be filled</div>
-  <div>
-    <select type = "number" [(ngModel)]="post.id" #postId = "ngModel" required name="postId">
-      <option *ngFor="let post of posts">{{post.id}}</option>
-    </select>
-  </div>
-  <div *ngIf="!postId.valid">This field must be filled</div>
-  <button [disabled]="!postId.valid || !userId.valid">get post</button>
-</form>
-<app-post *ngFor="let post of filteredPosts" [post]="post"></app-post>
-<form #commentForm = "ngForm" (ngSubmit)="getComment()">
-  <div>
-    <select type = "number" [(ngModel)]="comment.postId" #postId = "ngModel" required name = "postId">
-      <option *ngFor="let post of posts">{{post.id}}</option>
-    </select>
-  </div>
-  <div *ngIf="!postId.valid">This field must be filled</div>
-  <div>
-    <select  type = "number" [(ngModel)]="comment.id" #commentId = "ngModel" required name="commentId">
-      <option *ngFor="let comment of comments">{{comment.id}}</option>
-    </select>
-  </div>
-  <div *ngIf="!commentId.valid">This field must be filled</div>
-  <button [disabled]="!postId.valid || !commentId.valid">get post</button>
-</form>
-<app-comment *ngFor="let comment of filteredComments" [comment]="comment"></app-comment>
-
